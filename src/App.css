@@ -70,3 +70,21 @@
     #111
   );
 }
+
+/* Social Icons Links */
+
+.fa {
+  background-color: #fff;
+  width: 40px;
+  margin-right: 20px;
+  height: 40px;
+  color: #000;
+  padding: 12px;
+  border-radius: 50%;
+  transition: ease-in-out 0.5s;
+}
+
+.fa:hover {
+  filter: invert();
+  transform: scale(1.2);
+}
