@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col } from 'react-bootstrap';
 
-const CharacterItem = ({ item }) => {
+const CharacterItem = ({ item, showInfo }) => {
   var genderIcon = item.gender;
   if (genderIcon.toLowerCase() === 'male') {
     genderIcon = 'mars';
@@ -33,29 +33,22 @@ const CharacterItem = ({ item }) => {
       >
         &#9673;
       </span>
-      <Card bg={'dark'} text={'light'}>
+      <Card bg={'dark'} text={'light'} className="text-center">
         <Card.Img className="character-img" variant="top" src={item.image} />
         <Card.Header className="text-warning">{item.name}</Card.Header>
         <Card.Body>
           <Card.Text>
-            Gender: {item.gender}
+            {item.species} | {item.gender}
             {' ( '}
             <i
               className={`fa fa-${genderIcon} text-success`}
               aria-hidden="true"
             ></i>
             {' )'}
-            <br />
-            Species: {item.species} <br />
           </Card.Text>
-          <div className="text-center">
-            <button
-              className="banner-button"
-              onClick={() => alert('Clicked More Info')}
-            >
-              More Info
-            </button>
-          </div>
+          <button className="banner-button" onClick={() => showInfo(item)}>
+            More Info
+          </button>
         </Card.Body>
       </Card>
     </Col>

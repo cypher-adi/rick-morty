@@ -4,6 +4,7 @@ import Pagination from '../UI/CustomPagination';
 import { endpoints } from '../../Utils/endpoints';
 import CharacterItem from './CharacterItem';
 import { Row } from 'react-bootstrap';
+import CharacterModal from './CharacterModal';
 
 const { characters } = endpoints;
 
@@ -14,6 +15,9 @@ const CharacterGrid = () => {
   const [totalpages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
+  const [show, setShow] = useState(false);
+  const [modalItem, setModalItem] = useState([]);
+
   const fetchData = (page = activePage) => {
     setLoaded(false);
     const url = characters + `?page=${page}`;
@@ -22,7 +26,6 @@ const CharacterGrid = () => {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson);
         setData(resJson.results);
         setTotalPages(resJson.info.pages);
         setLoaded(true);
@@ -47,6 +50,16 @@ const CharacterGrid = () => {
     fetchAPI();
   }, []);
 
+  const showInfo = (item) => {
+    setShow(true);
+    setModalItem(item);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setModalItem([]);
+  };
+
   return (
     <>
       <h2 className="text-center">Characters</h2>
@@ -57,8 +70,15 @@ const CharacterGrid = () => {
       <Row>
         {loaded &&
           errorMsg === '' &&
-          data.map((item) => <CharacterItem item={item} />)}
+          data.map((item) => <CharacterItem item={item} showInfo={showInfo} />)}
       </Row>
+      {show && (
+        <CharacterModal
+          show={show}
+          item={modalItem}
+          handleClose={handleClose}
+        />
+      )}
       {data && (
         <Pagination
           activePage={activePage}
