@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Button } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 
 const CharacterItem = ({ item }) => {
   var genderIcon = item.gender;
@@ -21,16 +21,20 @@ const CharacterItem = ({ item }) => {
       : 'text-muted';
 
   return (
-    <Col md={3} className="p-3 character-card">
-      <Card bg={'dark'} text={'light'} key={item.index}>
+    <Col md={3} className="p-3 character-card" key={item.index}>
+      <span
+        className={`${statusColor}`}
+        style={{
+          fontSize: '2rem',
+          zIndex: '10',
+          position: 'absolute',
+          marginLeft: '10px',
+        }}
+      >
+        &#9673;
+      </span>
+      <Card bg={'dark'} text={'light'}>
         <Card.Img className="character-img" variant="top" src={item.image} />
-        <Card.ImgOverlay className="pt-0 pl-2">
-          <Card.Title>
-            <span className={`${statusColor}`} style={{ fontSize: '2rem' }}>
-              &#9673;
-            </span>
-          </Card.Title>
-        </Card.ImgOverlay>
         <Card.Header className="text-warning">{item.name}</Card.Header>
         <Card.Body>
           <Card.Text>
@@ -45,7 +49,12 @@ const CharacterItem = ({ item }) => {
             Species: {item.species} <br />
           </Card.Text>
           <div className="text-center">
-            <Button variant="info">More Info</Button>
+            <button
+              className="banner-button"
+              onClick={() => alert('Clicked More Info')}
+            >
+              More Info
+            </button>
           </div>
         </Card.Body>
       </Card>
