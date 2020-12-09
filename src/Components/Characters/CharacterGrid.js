@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../UI/Spinner';
 import Pagination from '../UI/CustomPagination';
 import { endpoints } from '../../Utils/endpoints';
+import CharacterItem from './CharacterItem';
+import { Row } from 'react-bootstrap';
 
 const { characters } = endpoints;
 
@@ -47,17 +49,16 @@ const CharacterGrid = () => {
 
   return (
     <>
+      <h2 className="text-center">Characters</h2>
       {!loaded && <Spinner />}
       {loaded && errorMsg !== '' && (
         <h3 className="text-center text-danger"> {errorMsg} </h3>
       )}
-      {loaded &&
-        errorMsg === '' &&
-        data.map((item) => (
-          <li key={item.id}>
-            {item.name} - {item.species}
-          </li>
-        ))}
+      <Row>
+        {loaded &&
+          errorMsg === '' &&
+          data.map((item) => <CharacterItem item={item} />)}
+      </Row>
       {data && (
         <Pagination
           activePage={activePage}

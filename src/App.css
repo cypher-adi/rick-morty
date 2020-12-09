@@ -73,7 +73,7 @@
 
 /* Social Icons Links */
 
-.fa {
+.social {
   background-color: #fff;
   width: 40px;
   margin-right: 20px;
@@ -84,7 +84,7 @@
   transition: ease-in-out 0.5s;
 }
 
-.fa:hover {
+.social:hover {
   filter: invert();
   transform: scale(1.2);
 }
@@ -112,4 +112,9 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Character Card */
+.character-img {
+  border-bottom: 2px solid red;
 }
