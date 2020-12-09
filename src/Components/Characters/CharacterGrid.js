@@ -62,7 +62,9 @@ const CharacterGrid = () => {
 
   return (
     <>
-      <h2 className="text-center">Characters</h2>
+      <h2 className="text-center">
+        <span className="border-bottom border-danger">Characters</span>
+      </h2>
       {!loaded && <Spinner />}
       {loaded && errorMsg !== '' && (
         <h3 className="text-center text-danger"> {errorMsg} </h3>

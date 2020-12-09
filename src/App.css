@@ -115,6 +115,20 @@
 }
 
 /* Character Card */
+.character-card {
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.character-card:hover {
+  transform: scale(1.1);
+}
+
 .character-img {
   border-bottom: 2px solid red;
+}
+
+.character-img:hover {
+  cursor: pointer;
+  filter: grayscale(0.5);
 }
