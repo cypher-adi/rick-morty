@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../UI/Spinner';
 import Pagination from '../UI/CustomPagination';
+import EpisodeItem from './EpisodeItem';
+import { Table } from 'react-bootstrap';
 import { endpoints } from '../../Utils/endpoints';
-import CharacterItem from './CharacterItem';
-import { Row } from 'react-bootstrap';
-import CharacterModal from './CharacterModal';
 
-const { characters } = endpoints;
+const { episodes } = endpoints;
 
-const CharacterGrid = () => {
+const EpisodeGrid = () => {
   const [loaded, setLoaded] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [data, setData] = useState({});
   const [totalpages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
-  const [show, setShow] = useState(false);
-  const [modalItem, setModalItem] = useState([]);
-
   const fetchData = (page = activePage) => {
     setLoaded(false);
-    const url = characters + `?page=${page}`;
+    const url = episodes + `?page=${page}`;
     fetch(url, {
       method: 'GET',
     })
       .then((res) => res.json())
       .then((resJson) => {
+        console.log(resJson);
         setData(resJson.results);
         setTotalPages(resJson.info.pages);
         setLoaded(true);
@@ -50,38 +47,38 @@ const CharacterGrid = () => {
     fetchAPI();
   }, []);
 
-  const showInfo = (item) => {
-    setShow(true);
-    setModalItem(item);
-  };
-
-  const handleClose = () => {
-    setShow(false);
-    setModalItem([]);
-  };
-
   return (
     <>
       <h2 className="text-center">
-        <span className="border-bottom border-danger">Characters</span>
+        <span className="border-bottom border-danger">Episodes</span>
       </h2>
       {!loaded && <Spinner />}
       {loaded && errorMsg !== '' && (
         <h3 className="text-center text-danger"> {errorMsg} </h3>
       )}
-      <Row>
-        {loaded &&
-          errorMsg === '' &&
-          data.map((item) => (
-            <CharacterItem item={item} key={item.id} showInfo={showInfo} />
-          ))}
-      </Row>
-      {show && (
-        <CharacterModal
-          show={show}
-          item={modalItem}
-          handleClose={handleClose}
-        />
+      {loaded && errorMsg === '' && (
+        <Table
+          striped
+          responsive
+          hover
+          bordered
+          variant="dark"
+          className="text-light text-center mt-3"
+        >
+          <thead>
+            <tr className="text-warning">
+              <th>Episode</th>
+              <th>Name</th>
+              <th>Characters</th>
+              <th>Air Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <EpisodeItem item={item} key={item.id} />
+            ))}
+          </tbody>
+        </Table>
       )}
       {data && (
         <Pagination
@@ -94,4 +91,4 @@ const CharacterGrid = () => {
   );
 };
 
-export default CharacterGrid;
+export default EpisodeGrid;

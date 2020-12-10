@@ -25,7 +25,7 @@ const Navigation = () => {
             Characters
           </Nav.Link>
           <Nav.Link as={Link} to="/locations">
-            Location
+            Locations
           </Nav.Link>
           <Nav.Link as={Link} to="/episodes">
             Episodes

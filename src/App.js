@@ -9,6 +9,8 @@ import Footer from './Components/UI/Footer';
 
 import Home from './Components/Home';
 import CharacterGrid from './Components/Characters/CharacterGrid';
+import LocationGrid from './Components/Locations/LocationGrid';
+import EpisodeGrid from './Components/Episodes/EpisodeGrid';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/characters" component={CharacterGrid} />
+            <Route path="/locations" component={LocationGrid} />
+            <Route path="/episodes" component={EpisodeGrid} />
           </Switch>
           <Footer />
         </div>

@@ -21,7 +21,7 @@ const CharacterItem = ({ item, showInfo }) => {
       : 'text-muted';
 
   return (
-    <Col md={3} className="p-3 character-card" key={item.index}>
+    <Col md={3} className="p-3 character-card">
       <span
         className={`${statusColor}`}
         style={{
