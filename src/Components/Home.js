@@ -25,7 +25,6 @@ const Home = () => {
           <a
             href="https://facebook.com/RickandMorty"
             target="_blank"
-            without
             rel="noreferrer"
           >
             <i className="fa fa-facebook fa-lg social" aria-hidden="true"></i>
@@ -33,7 +32,6 @@ const Home = () => {
           <a
             href="https://twitter.com/rickandmorty"
             target="_blank"
-            without
             rel="noreferrer"
           >
             <i className="fa fa-twitter fa-lg social" aria-hidden="true"></i>
@@ -41,7 +39,6 @@ const Home = () => {
           <a
             href="https://instagram.com/rickandmorty"
             target="_blank"
-            without
             rel="noreferrer"
           >
             <i className="fa fa-instagram fa-lg social" aria-hidden="true"></i>
@@ -49,7 +46,6 @@ const Home = () => {
           <a
             href="https://www.adultswim.com/misc/rick-and-morty-products/"
             target="_blank"
-            without
             rel="noreferrer"
           >
             <i className="fa fa-shopping-cart social" aria-hidden="true"></i>

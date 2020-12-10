@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="mt-5 pb-2 text-center text-secondary">
       Designed with &hearts; by{' '}
-      <Link
-        to="https:\\github.com\cypher-adi"
+      <a
+        href="https:\\github.com\cypher-adi"
+        target="_blank"
+        rel="noreferrer"
         style={{ textDecoration: 'none' }}
       >
         Cypher
-      </Link>{' '}
+      </a>{' '}
       &copy; {new Date().getFullYear()}
     </footer>
   );
