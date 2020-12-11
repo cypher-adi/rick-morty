@@ -3,7 +3,7 @@ import Spinner from '../UI/Spinner';
 import Pagination from '../UI/CustomPagination';
 import { endpoints } from '../../Utils/endpoints';
 import CharacterItem from './CharacterItem';
-import { Row } from 'react-bootstrap';
+import { Row, Form, Col } from 'react-bootstrap';
 import CharacterModal from './CharacterModal';
 
 const { characters } = endpoints;
@@ -18,28 +18,42 @@ const CharacterGrid = () => {
   const [show, setShow] = useState(false);
   const [modalItem, setModalItem] = useState([]);
 
-  const fetchData = (page = activePage) => {
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState('');
+  const [gender, setGender] = useState('');
+
+  const fetchData = (n = name, s = status, g = gender, page = 1) => {
     setLoaded(false);
-    const url = characters + `?page=${page}`;
+    setErrorMsg('');
+    const url = characters + `?name=${n}&status=${s}&gender=${g}&page=${page}`;
     fetch(url, {
       method: 'GET',
     })
       .then((res) => res.json())
       .then((resJson) => {
-        setData(resJson.results);
-        setTotalPages(resJson.info.pages);
-        setLoaded(true);
+        if (!resJson.error) {
+          setData(resJson.results);
+          setTotalPages(resJson.info.pages);
+          setLoaded(true);
+        } else {
+          setErrorMsg(
+            'Did those Morons disabled the web or no such person exists !?'
+          );
+          setLoaded(true);
+        }
       })
       .catch((err) => {
         console.log(err);
-        setErrorMsg('Those Morons disabled the web.');
+        setErrorMsg(
+          'Did those Morons disabled the web or no such person exists !?'
+        );
         setLoaded(true);
       });
   };
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
-    fetchData(pageNumber);
+    fetchData(name, status, gender, pageNumber);
   };
 
   useEffect(() => {
@@ -60,11 +74,68 @@ const CharacterGrid = () => {
     setModalItem([]);
   };
 
+  const handleNameSearch = (e) => {
+    var name = e.target.value;
+    setName(name);
+    setActivePage(1);
+    fetchData(name, status, gender, 1);
+  };
+
+  const handleStatusChange = (e) => {
+    var status = e.target.value;
+    setStatus(status);
+    setActivePage(1);
+    fetchData(name, status, gender, 1);
+  };
+
+  const handleChange = (e) => {
+    var gender = e.target.value;
+    setGender(gender);
+    setActivePage(1);
+    fetchData(name, status, gender, 1);
+  };
+
   return (
     <>
       <h2 className="text-center">
         <span className="border-bottom border-danger">Characters</span>
       </h2>
+      <Form className="p-3">
+        <Form.Row>
+          <Col>
+            <Form.Control
+              type="text"
+              id="name"
+              value={name}
+              onChange={handleNameSearch}
+              placeholder="Search by name"
+            />
+          </Col>
+          <Col>
+            <Form.Control as="select" id="status" onChange={handleStatusChange}>
+              <option disabled selected>
+                Status
+              </option>
+              <option value="">All</option>
+              <option>Alive</option>
+              <option>Dead</option>
+              <option>Unknown</option>
+            </Form.Control>
+          </Col>
+          <Col>
+            <Form.Control as="select" id="gender" onChange={handleChange}>
+              <option disabled selected>
+                Gender
+              </option>
+              <option value="">All</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Genderless</option>
+              <option>Unknown</option>
+            </Form.Control>
+          </Col>
+        </Form.Row>
+      </Form>
       {!loaded && <Spinner />}
       {loaded && errorMsg !== '' && (
         <h3 className="text-center text-danger"> {errorMsg} </h3>
